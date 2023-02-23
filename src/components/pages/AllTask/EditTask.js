@@ -5,9 +5,9 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { coolGray } from "tailwindcss/colors";
 
 const EditTask = () => {
-    const loadData = useLoaderData()
-    const {title, message , _id} = loadData
-    // console.log(loadData)
+	const loadData = useLoaderData();
+	const { title, message, _id } = loadData;
+	// console.log(loadData)
 	const {
 		register,
 		formState: { errors },
@@ -18,16 +18,16 @@ const EditTask = () => {
 
 	const handleUpdateTask = (data) => {
 		// event.preventDefault();
-        console.log(data)
+		// console.log(data)
 		const updatedTitle = data.title;
-        const updatedMessage = data.message;
+		const updatedMessage = data.message;
 
-		fetch(` http://localhost:5000/edit/${_id}`, {
+		fetch(`  https://todo-app-server-ten.vercel.app/edit/${_id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ updatedTitle, updatedMessage}),
+			body: JSON.stringify({ updatedTitle, updatedMessage }),
 		})
 			.then((res) => res.json())
 			.then((data) => {
@@ -42,11 +42,13 @@ const EditTask = () => {
 	return (
 		<div className="my-16">
 			<h2 className="text-center">Task </h2>
-			<form onSubmit={handleSubmit(handleUpdateTask)} className='w-1/2 mx-auto bg-slate-200 my-8 p-8 rounded-lg'>
+			<form
+				onSubmit={handleSubmit(handleUpdateTask)}
+				className="w-1/2 mx-auto bg-slate-200 my-8 p-8 rounded-lg"
+			>
 				<div className="form-control max-w-lg">
 					<input
 						{...register("title", {
-							
 							minLength: {
 								value: 50,
 								message: "Title should be max 50 characters",
@@ -55,7 +57,7 @@ const EditTask = () => {
 						type="text"
 						placeholder="Type here"
 						className="input input-bordered"
-                        defaultValue={title}
+						defaultValue={title}
 					/>
 					{errors.title && (
 						<p className="text-red-500">{errors.title?.message}</p>
@@ -65,7 +67,6 @@ const EditTask = () => {
 				<div className="form-control w-full max-w-lg mt-4">
 					<textarea
 						{...register("message", {
-							
 							minLength: {
 								value: 120,
 								message: "Message should be max 120 characters",
@@ -74,7 +75,7 @@ const EditTask = () => {
 						type="text"
 						placeholder="Type here"
 						className="input input-bordered mb-4 p-10"
-                        defaultValue={message}
+						defaultValue={message}
 					/>
 
 					{errors.message && (

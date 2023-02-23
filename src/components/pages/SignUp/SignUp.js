@@ -10,7 +10,7 @@ const SignUp = () => {
 
     const [error, setError] = useState("");
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSignUp = (data) => {
 		console.log(data);
@@ -23,7 +23,7 @@ const SignUp = () => {
 
                 handleUpdteUserProfile(data.name,data.email)
 				toast.success("user created successfully");
-				// navigate(from, { replace: true });
+				navigate('/');
 			})
 			.catch((error) => {
 				console.log(error);

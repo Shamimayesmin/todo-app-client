@@ -1,27 +1,31 @@
-import React from 'react';
-import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { FcTodoList } from "react-icons/fc";
 
 const AddTask = () => {
-    const navigate = useNavigate();
-    const handleSubmit = (event) => {
+	const navigate = useNavigate();
+	const handleSubmit = (event) => {
 		event.preventDefault();
 
 		const form = event.target;
 		const date = new Date();
-        const title = form.title.value;
+		const title = form.title.value;
 		const message = form.message.value;
-        
-		console.log(message,title);
+		// const role = form.role.value;
+		const status = "active";
+
+		console.log(message, title);
 
 		const task = {
-            title,
+			title,
 			message,
 			date,
+			status,
 		};
 		console.log(task);
 
-		fetch(" http://localhost:5000/addTask", {
+		fetch("  https://todo-app-server-ten.vercel.app/addTask", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -39,13 +43,23 @@ const AddTask = () => {
 			})
 			.catch((err) => console.error(err));
 	};
-    return (
-        <div className="my-16">
-			<h2 className="text-center text-3xl text-bold">Todo List</h2>
+	return (
+		<div className="my-16">
+			<div className="flex justify-center items-center">
+				<h2 className="text-center text-3xl font-bold text-info font-serif">
+					Todo List
+				</h2>
+				<div>
+					<FcTodoList className="text-5xl text-bold ml-3"></FcTodoList>
+				</div>
+			</div>
+
 			<form
 				onSubmit={handleSubmit}
 				className="w-1/3 mx-auto text-black gap-2 mt-10"
 			>
+				
+
 				<label className="sr-only" htmlFor="message">
 					Title
 				</label>
@@ -65,13 +79,13 @@ const AddTask = () => {
 				></textarea>
 
 				<input
-					className="btn bg-teal-600 text-white p-4 rounded-md justify-center items-center"
+					className="btn bg-info text-white p-4 rounded-md justify-center items-center"
 					type="submit"
 					value="add task"
 				/>
 			</form>
 		</div>
-    );
+	);
 };
 
 export default AddTask;

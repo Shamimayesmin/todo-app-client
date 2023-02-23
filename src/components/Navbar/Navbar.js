@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
+	const { user, logOut } = useContext(AuthContext);
+	const navegate = useNavigate();
+	const handleLogOut = () => {
+		logOut()
+			.then(() => {})
+			.catch((err) => console.error(err));
+			navegate('/login')
+	};
 	return (
 		<div className="navbar bg-base-300">
 			<div className="navbar-start">
@@ -48,18 +57,29 @@ const Navbar = () => {
 					<li>
 						<Link to='/all'>All Task</Link>
 					</li>
-					<li>
+					{
+						user?.uid?
+						<li>
+							<button className="hover:bg-red-500 rounded-3xl" onClick={handleLogOut}>Sign Out</button>
+						</li>
+						:
+						<li>
 						<Link to='/login'>Login</Link>
 					</li>
 
+					}
+					{/* <li>
+						<Link to='/login'>Login</Link>
+					</li> */}
+
 					<li>
-						<div className="form-control">
+						{/* <div className="form-control">
 							<input
 								type="text"
 								placeholder="Search"
 								className="input input-bordered"
 							/>
-						</div>
+						</div> */}
 					</li>
 				</ul>
 			</div>
